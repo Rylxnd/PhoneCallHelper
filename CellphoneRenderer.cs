@@ -6,15 +6,23 @@ namespace PhoneCallHelper
     internal static class CellphoneRenderer
     {
         private static int lastPlayerModel;
+        private const int closeTime = 1500;
+        private static int lastTickTime;
 
         private static int cellphoneScaleformInstance;
         private static string callScreenCharacterName;
         private static string callScreenCharacterPicture;
         private static string callScreenState;
 
+        private static bool closing;
         private static bool mainRender;
         private static bool hangUpButtonRender;
         private static bool pickUpButtonRender;
+
+        public static bool IsPhoneClosed()
+        {
+            return Globals.GetScriptCellphoneState() == 3 && !closing && !mainRender;
+        }
 
         public static void OpenPhone()
         {
@@ -22,10 +30,11 @@ namespace PhoneCallHelper
             mainRender = true;
         }
 
-        public static void ClosePhone() 
+        public static void ClosePhone()
         {
             Globals.SetScriptCellphoneState(3);
-            mainRender = false;
+            closing = true;
+            lastTickTime = Game.GameTime;
         }
 
         private static void DrawPhone()
@@ -111,6 +120,8 @@ namespace PhoneCallHelper
 
         public static void OnProcessTick()
         {
+            int currentTickTime = Game.GameTime;
+
             if (mainRender)
             {
                 if (cellphoneScaleformInstance != 0)
@@ -128,6 +139,7 @@ namespace PhoneCallHelper
                 }
                 else
                 {
+                    Game.DisableControlThisFrame(Control.Phone);
                     Globals.SetScriptCellphoneLocked(false);
                 }
             }
@@ -136,6 +148,16 @@ namespace PhoneCallHelper
             {
                 lastPlayerModel = Game.Player.Character.Model.Hash;
                 cellphoneScaleformInstance = Function.Call<int>(Hash.REQUEST_SCALEFORM_MOVIE, CellphoneProperties.GetPlayerPhoneScaleformName());
+            }
+
+            if (closing)
+            {
+                if (currentTickTime - lastTickTime > closeTime)
+                {
+                    closing = false;
+                    mainRender = false;
+                    Globals.SetScriptCellphoneLocked(false);
+                }
             }
         }
 

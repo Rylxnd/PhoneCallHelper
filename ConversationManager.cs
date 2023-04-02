@@ -59,7 +59,7 @@ namespace PhoneCallHelper
 
         public static bool CanStartNewPhoneCallThisFrame()
         {
-            return (isPLaying == false) && isReadyForNewCall && activeCall == null;
+            return (isPLaying == false) && isReadyForNewCall && activeCall == null && CellphoneRenderer.IsPhoneClosed();
         }
 
         public static bool IsPlayingConversation()
