@@ -41,6 +41,10 @@ namespace PhoneCallHelper
                 return false;
             }
 
+            CellphoneRenderer.SetCallScreenCharcater(callInstance.GetContact());
+            CellphoneRenderer.SetRenderHangUpButton(canHangUp);
+            CellphoneRenderer.OpenPhone();
+
             switch (callType)
             {
                 case eCallType.Outgoing:
@@ -53,10 +57,6 @@ namespace PhoneCallHelper
                     Function.Call(Hash.PLAY_PED_RINGTONE, Globals.GetScriptCellphoneRingtoneName(), Game.Player.Character, 1);
                     break;
             }
-
-            CellphoneRenderer.SetCallScreenCharcater(callInstance.GetContact());
-            CellphoneRenderer.SetRenderHangUpButton(canHangUp);
-            CellphoneRenderer.OpenPhone();
 
             phoneCallInstance = callInstance;
             canHangUpCall = canHangUp;

@@ -1,5 +1,6 @@
 ﻿using GTA;
 using GTA.Native;
+using System.Threading;
 
 namespace PhoneCallHelper
 {
@@ -26,7 +27,17 @@ namespace PhoneCallHelper
 
         public static void OpenPhone()
         {
-            Globals.SetScriptCellphoneState(4);
+            if (Globals.GetScriptCellphoneState() < 6)
+            {
+                Globals.SetScriptCellphoneState(3);
+                Script.Wait(400);
+                Globals.SetScriptCellphoneState(4);
+                while (Globals.GetScriptCellphoneState() < 6)
+                {
+                    Script.Wait(0);
+                }
+                Globals.SetScriptCellphoneState(6);
+            }
             mainRender = true;
         }
 
