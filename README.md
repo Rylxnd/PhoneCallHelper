@@ -23,4 +23,6 @@ You can find subtitles in .gxt files.
 ## TO-DO
 
 - Add summarys for all non-internal methods
-- Add ability to add Contacts to the phone contact list and call them.
+- Add ability to add Contacts to the phone contact list and call them
+ - Add option for contact to be busy
+- Add ability to send text messages and emails to the player
