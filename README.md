@@ -11,7 +11,7 @@ Make sure you have the following in your project:
 - `ScriptHookVDotNet3.dll`
 - `PhoneCallHelper.dll`
 
-There is an [Example Script](https://google.com) that you can look at.
+There is an [Example Script](https://github.com/OnlyRealNubs/PhoneCallHelper/blob/master/Example/ExampleScript.cs) that you can look at.
 
 ## Resources
 - [Contact Icons](https://wiki.gtanet.work/index.php?title=Notification_Pictures)
